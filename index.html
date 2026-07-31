@@ -1082,6 +1082,15 @@
   /* ---------- music toggle ---------- */
   const musicBtn = document.getElementById('musicBtn');
   const bgm = document.getElementById('bgm');
+  document.addEventListener('touchstart', function firstTouch(){
+  if (bgm.paused){
+    bgm.play().then(() => {
+      musicBtn.classList.add('playing');
+      musicBtn.textContent = '♫';
+    }).catch(() => {});
+  }
+  document.removeEventListener('touchstart', firstTouch);
+}, { once: true });
   musicBtn.addEventListener('click', function(){
     if (bgm.paused){
       bgm.play().then(() => {
