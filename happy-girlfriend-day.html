@@ -1,0 +1,1103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Happy Girlfriend Day</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Patrick+Hand&family=Quicksand:wght@500;600;700&display=swap" rel="stylesheet">
+
+<style>
+  :root{
+    --cream:#f6eee0;
+    --cream-deep:#ecdfc6;
+    --blush:#f7c6d2;
+    --pink:#f0899e;
+    --rose:#dd5372;
+    --plum:#4a2a35;
+    --ink:#5b3a44;
+    --gold:#c9a56b;
+    --paper:#fbf7ee;
+    --shadow: 0 18px 40px -18px rgba(74,42,53,0.35);
+  }
+
+  *{ box-sizing:border-box; }
+
+  html,body{
+    margin:0;
+    padding:0;
+    height:100%;
+    background:#20141a;
+    font-family:'Quicksand',sans-serif;
+    color:var(--ink);
+    -webkit-tap-highlight-color:transparent;
+  }
+
+  .device{
+    max-width:480px;
+    margin:0 auto;
+    height:100dvh;
+    overflow-y:scroll;
+    scroll-snap-type:y mandatory;
+    position:relative;
+    background:var(--cream);
+    box-shadow:0 0 60px rgba(0,0,0,0.5);
+  }
+  .device::-webkit-scrollbar{ display:none; }
+  .device{ scrollbar-width:none; }
+
+  .scene{
+    min-height:100dvh;
+    width:100%;
+    scroll-snap-align:start;
+    scroll-snap-stop:always;
+    position:relative;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    padding:48px 28px 90px;
+    overflow:hidden;
+    background:
+      radial-gradient(circle at 15% 10%, rgba(241,137,158,0.12), transparent 40%),
+      radial-gradient(circle at 85% 90%, rgba(201,165,107,0.15), transparent 45%),
+      var(--cream);
+  }
+
+  .scene::before{
+    content:"";
+    position:absolute;
+    inset:0;
+    background-image:
+      linear-gradient(rgba(74,42,53,0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(74,42,53,0.04) 1px, transparent 1px);
+    background-size:26px 26px;
+    pointer-events:none;
+    opacity:0.6;
+  }
+
+  /* ---------- shared bits ---------- */
+  .eyebrow-tape{
+    position:relative;
+    background:var(--paper);
+    font-family:'Patrick Hand',cursive;
+    font-size:15px;
+    color:var(--ink);
+    padding:14px 22px;
+    border-radius:2px;
+    box-shadow:var(--shadow);
+    transform:rotate(-2deg);
+    text-align:center;
+    z-index:2;
+    background-image:
+      linear-gradient(rgba(74,42,53,0.06) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(74,42,53,0.06) 1px, transparent 1px);
+    background-size:14px 14px;
+  }
+  .eyebrow-tape::before,
+  .eyebrow-tape::after{
+    content:"";
+    position:absolute;
+    width:46px; height:18px;
+    background:rgba(201,165,107,0.55);
+    top:-10px;
+  }
+  .eyebrow-tape::before{ left:-14px; transform:rotate(-8deg); }
+  .eyebrow-tape::after{ right:-14px; transform:rotate(8deg); }
+
+  h1.title{
+    font-family:'Caveat',cursive;
+    font-weight:700;
+    font-size:44px;
+    color:var(--plum);
+    text-align:center;
+    margin:18px 0 6px;
+    line-height:1.05;
+    z-index:2;
+  }
+  .subtitle{
+    font-family:'Patrick Hand',cursive;
+    font-size:16px;
+    color:var(--rose);
+    text-align:center;
+    margin-bottom:28px;
+    z-index:2;
+  }
+
+  .hint{
+    position:absolute;
+    bottom:30px;
+    left:0; right:0;
+    text-align:center;
+    font-size:12px;
+    letter-spacing:2px;
+    text-transform:uppercase;
+    color:var(--ink);
+    opacity:0.55;
+    z-index:2;
+  }
+  .hint svg{ display:block; margin:6px auto 0; opacity:0.8; }
+
+  .balloons{
+    position:absolute;
+    left:14px; bottom:14px;
+    width:110px;
+    opacity:0.95;
+    z-index:1;
+    filter:drop-shadow(0 8px 14px rgba(0,0,0,0.15));
+  }
+
+  /* floating ambient hearts */
+  .float-heart{
+    position:absolute;
+    bottom:-10%;
+    font-size:14px;
+    color:var(--pink);
+    opacity:0.35;
+    animation:floatUp linear infinite;
+    z-index:1;
+    pointer-events:none;
+  }
+  @keyframes floatUp{
+    from{ transform:translateY(0) translateX(0) rotate(0deg); opacity:0; }
+    10%{ opacity:0.45; }
+    90%{ opacity:0.3; }
+    to{ transform:translateY(-115dvh) translateX(var(--drift,20px)) rotate(25deg); opacity:0; }
+  }
+
+  /* ---------- STYLED PHOTO HANDLING ---------- */
+  .photo-slot{
+    position:relative;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background:var(--paper);
+    border: 3px solid #fff;
+    border-radius: 8px;
+    box-shadow: 0 8px 20px rgba(74,42,53,0.15);
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  .photo-slot img{
+    width:100%; height:100%;
+    object-fit:cover;
+    display:block;
+    transition: transform 0.4s ease;
+  }
+  .photo-slot:hover img{
+    transform: scale(1.04);
+  }
+  .photo-slot img.missing{ display:none; }
+  .photo-fallback{
+    display:none;
+    flex-direction:column;
+    align-items:center;
+    gap:6px;
+    font-family:'Quicksand',sans-serif;
+    font-size:11px;
+    color:var(--rose);
+    text-align:center;
+    padding:10px;
+  }
+  .photo-slot img.missing + .photo-fallback{ display:flex; }
+  .photo-fallback .icon{ font-size:22px; }
+
+  /* progress dots */
+  .dots{
+    position:fixed;
+    right:14px;
+    top:50%;
+    transform:translateY(-50%);
+    display:flex;
+    flex-direction:column;
+    gap:10px;
+    z-index:50;
+  }
+  .dots button{
+    width:8px; height:8px;
+    border-radius:50%;
+    border:none;
+    background:rgba(74,42,53,0.25);
+    padding:0;
+    cursor:pointer;
+    transition:background .25s, transform .25s;
+  }
+  .dots button.active{
+    background:var(--rose);
+    transform:scale(1.35);
+  }
+
+  /* music toggle */
+  .music-btn{
+    position:fixed;
+    right:16px;
+    bottom:18px;
+    width:46px; height:46px;
+    border-radius:50%;
+    border:none;
+    background:var(--rose);
+    color:#fff;
+    font-size:18px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    box-shadow:var(--shadow);
+    cursor:pointer;
+    z-index:60;
+  }
+  .music-btn.playing{ animation:pulse 1.6s ease-in-out infinite; }
+  @keyframes pulse{
+    0%,100%{ box-shadow:0 0 0 0 rgba(221,83,114,0.45); }
+    50%{ box-shadow:0 0 0 10px rgba(221,83,114,0); }
+  }
+
+  /* ---------- SCENE 1: envelope ---------- */
+  #scene-cover{ cursor:pointer; background-color:var(--cream); }
+  .note-tag{
+    position:absolute;
+    top:56px; right:22px;
+    background:#fbe89b;
+    font-family:'Patrick Hand',cursive;
+    font-size:14px;
+    padding:12px 16px 10px;
+    transform:rotate(4deg);
+    box-shadow:var(--shadow);
+    z-index:2;
+  }
+  .note-tag::before{
+    content:"";
+    position:absolute;
+    top:-8px; left:40%;
+    width:26px; height:12px;
+    background:rgba(255,255,255,0.6);
+  }
+
+  .envelope-wrap{
+    position:relative;
+    width:260px;
+    height:190px;
+    margin-top:10px;
+    z-index:2;
+  }
+  .letter{
+    position:absolute;
+    left:8px; right:8px;
+    top:-38px;
+    height:150px;
+    background:var(--paper);
+    border-radius:4px;
+    box-shadow:0 10px 20px rgba(0,0,0,0.12);
+    padding:16px 18px;
+    font-family:'Patrick Hand',cursive;
+    color:var(--ink);
+    transition:transform .7s cubic-bezier(.2,.8,.2,1);
+    transform:translateY(64px);
+    z-index:1;
+  }
+  .letter .heart-corner{ color:var(--pink); font-size:12px; }
+  .letter .heart-corner.tr{ float:right; }
+  .letter p{ margin:10px 0 0; font-size:16px; line-height:1.4; text-align:center; }
+  #scene-cover.opened .letter{ transform:translateY(-6px); }
+
+  .envelope-body{
+    position:absolute;
+    left:0; right:0; bottom:0;
+    height:120px;
+    background:#eecda0;
+    border-radius:6px;
+    box-shadow:var(--shadow);
+    z-index:2;
+    overflow:hidden;
+  }
+  .envelope-flap{
+    position:absolute;
+    left:0; right:0; top:0;
+    height:92px;
+    background:linear-gradient(160deg,#ecc48f,#dba968);
+    clip-path:polygon(0 0, 100% 0, 50% 100%);
+    transform-origin:top center;
+    transition:transform .7s cubic-bezier(.2,.8,.2,1), opacity .6s;
+    z-index:3;
+  }
+  #scene-cover.opened .envelope-flap{ transform:translateY(-70%) rotate(-6deg); opacity:0; }
+  .seal{
+    position:absolute;
+    left:50%; top:76px;
+    transform:translate(-50%,0);
+    width:34px; height:34px;
+    background:var(--rose);
+    border-radius:50% 50% 50% 4px;
+    display:flex; align-items:center; justify-content:center;
+    color:#fff; font-size:16px;
+    box-shadow:var(--shadow);
+    z-index:4;
+    transition:opacity .4s;
+  }
+  #scene-cover.opened .seal{ opacity:0; }
+  .bunny{
+    position:absolute;
+    right:-14px; bottom:-6px;
+    font-size:52px;
+    z-index:2;
+  }
+
+  /* ---------- SCENE 2: happy girlfriend day ---------- */
+  .heart-balloon{
+    position:relative;
+    width:220px;
+    height:200px;
+    z-index:2;
+  }
+  .heart-balloon .shape{
+    width:200px; height:200px;
+    background:linear-gradient(160deg, var(--pink), var(--rose));
+    position:relative;
+    transform:rotate(-45deg);
+    border-radius:0 50% 50% 50%;
+    margin:0 auto;
+    box-shadow:0 20px 30px -10px rgba(221,83,114,0.5);
+  }
+  .heart-balloon .shape::before,
+  .heart-balloon .shape::after{
+    content:"";
+    position:absolute;
+    width:200px; height:200px;
+    background:inherit;
+    border-radius:50%;
+  }
+  .heart-balloon .shape::before{ top:-100px; left:0; }
+  .heart-balloon .shape::after{ left:100px; top:0; }
+  .heart-balloon .label{
+    position:absolute;
+    inset:0;
+    display:flex; align-items:center; justify-content:center;
+    font-family:'Caveat',cursive;
+    font-weight:700;
+    font-size:26px;
+    color:#fff;
+    text-align:center;
+    z-index:5;
+    padding-bottom:10px;
+  }
+  .balloon-string{
+    width:2px; height:60px;
+    background:var(--rose);
+    margin:0 auto;
+  }
+  .ribbon{
+    position:relative;
+    margin-top:14px;
+    background:var(--paper);
+    padding:20px 34px;
+    text-align:center;
+    font-family:'Patrick Hand',cursive;
+    font-size:17px;
+    color:var(--ink);
+    box-shadow:var(--shadow);
+    z-index:2;
+    max-width:300px;
+  }
+  .ribbon::before,.ribbon::after{
+    content:"";
+    position:absolute;
+    top:0; height:100%; width:22px;
+    background:var(--blush);
+  }
+  .ribbon::before{ left:-20px; clip-path:polygon(0 0,100% 0,100% 100%,0 100%,50% 50%); }
+  .ribbon::after{ right:-20px; clip-path:polygon(0 0,100% 0,100% 100%,0 100%,50% 50%); }
+
+  /* ---------- SCENE 3: charge my heart ---------- */
+  .battery-card{
+    width:100%; max-width:320px;
+    background:#fff;
+    border:2px dashed var(--pink);
+    border-radius:16px;
+    padding:20px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:14px;
+    z-index:2;
+    margin-bottom:16px;
+  }
+  .battery{
+    width:110px; height:52px;
+    border:3px solid var(--plum);
+    border-radius:8px;
+    position:relative;
+    background:#fff;
+    overflow:hidden;
+  }
+  .battery::after{
+    content:"";
+    position:absolute;
+    right:-9px; top:16px;
+    width:6px; height:20px;
+    background:var(--plum);
+    border-radius:0 3px 3px 0;
+  }
+  .battery-fill{
+    position:absolute;
+    left:0; bottom:0; top:0;
+    width:0%;
+    background:#e04b4b;
+    transition:width 1.6s cubic-bezier(.3,.8,.3,1), background .6s;
+  }
+  .battery-face{
+    position:absolute; inset:0;
+    display:flex; align-items:center; justify-content:center;
+    font-size:20px;
+    z-index:2;
+  }
+  .battery-pct{
+    position:absolute;
+    bottom:-22px; left:0; right:0;
+    text-align:center;
+    font-family:'Quicksand',sans-serif;
+    font-weight:700;
+    font-size:13px;
+    color:var(--ink);
+  }
+  .battery-label{
+    font-family:'Patrick Hand',cursive;
+    font-size:16px;
+    color:var(--ink);
+    text-align:center;
+    max-width:110px;
+  }
+  .charge-btn{
+    display:block;
+    margin:22px auto 26px;
+    background:var(--rose);
+    color:#fff;
+    border:none;
+    padding:12px 26px;
+    border-radius:30px;
+    font-family:'Quicksand',sans-serif;
+    font-weight:700;
+    font-size:14px;
+    cursor:pointer;
+    box-shadow:var(--shadow);
+    z-index:2;
+  }
+  .charge-btn:disabled{ opacity:0.5; cursor:default; }
+
+  .scratch-card{
+    width:100%; max-width:320px;
+    height:92px;
+    position:relative;
+    margin-bottom:14px;
+    border-radius:14px;
+    overflow:hidden;
+    box-shadow:var(--shadow);
+    z-index:2;
+  }
+  .scratch-under{
+    position:absolute; inset:0;
+    display:flex; align-items:center; justify-content:center;
+    text-align:center;
+    padding:14px;
+    background:#fff;
+    font-family:'Patrick Hand',cursive;
+    font-size:16px;
+    color:var(--ink);
+  }
+  .scratch-canvas{
+    position:absolute; inset:0;
+    touch-action:none;
+    cursor:grab;
+  }
+  .scratch-card .prompt{
+    position:absolute;
+    inset:0;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-family:'Quicksand',sans-serif;
+    font-weight:600;
+    font-size:14px;
+    color:#fff;
+    pointer-events:none;
+    letter-spacing:1px;
+    text-transform:uppercase;
+  }
+
+  /* ---------- SCENE 4: MEMORY JAR (RESTYLED POLAROIDS) ---------- */
+  .polaroid-stack{
+    position:relative;
+    width:220px; height:240px;
+    margin-bottom:26px;
+    z-index:2;
+  }
+  .polaroid{
+    position:absolute;
+    inset:0;
+    background:#fff;
+    padding:12px 12px 36px;
+    box-shadow:0 12px 25px rgba(74,42,53,0.22);
+    border-radius:4px;
+    border: 1px solid rgba(201,165,107,0.3);
+    transition:transform .5s cubic-bezier(.2,.8,.2,1), opacity .5s;
+    opacity:0;
+  }
+  .polaroid.show{ opacity:1; }
+  .polaroid::before{
+    content:"";
+    position:absolute;
+    top:-8px; left:50%;
+    transform:translateX(-50%);
+    width:40px; height:14px;
+    background:rgba(247,198,210,0.65);
+    border-radius:2px;
+  }
+  .polaroid .photo-slot{ width:100%; height:155px; background:#e9e2d3; border:none; }
+  .polaroid .cap{
+    font-family:'Patrick Hand',cursive;
+    font-size:15px;
+    text-align:center;
+    margin-top:10px;
+    color:var(--ink);
+  }
+  .jar{
+    position:relative;
+    width:150px; height:170px;
+    cursor:pointer;
+    z-index:2;
+    transition:transform .3s ease, opacity .3s ease;
+  }
+  .jar-lid{
+    width:90px; height:16px;
+    background:#f3ede0;
+    border:2px solid var(--plum);
+    border-radius:6px;
+    margin:0 auto -2px;
+  }
+  .jar-body{
+    width:150px; height:150px;
+    background:rgba(247,198,210,0.35);
+    border:2px solid var(--plum);
+    border-radius:16px 16px 30px 30px;
+    position:relative;
+    display:flex;
+    align-items:flex-end;
+    justify-content:center;
+    overflow:hidden;
+  }
+  .jar-bow{
+    position:absolute;
+    top:-4px; left:50%;
+    transform:translateX(-50%);
+    font-size:22px;
+    color:var(--rose);
+    z-index:2;
+  }
+  .jar-note{
+    font-family:'Quicksand',sans-serif;
+    font-size:13px;
+    color:var(--ink);
+    text-align:center;
+    margin-top:14px;
+    z-index:2;
+  }
+
+  /* ---------- SCENE 5: note ---------- */
+  .note-paper{
+    position:relative;
+    width:100%; max-width:320px;
+    background:repeating-linear-gradient(#fbf7ee 0 34px, #f0e6d3 35px);
+    padding:26px 22px;
+    box-shadow:var(--shadow);
+    font-family:'Patrick Hand',cursive;
+    font-size:16px;
+    line-height:34px;
+    color:var(--ink);
+    z-index:2;
+    border-radius:2px;
+  }
+  .note-paper::before{
+    content:"";
+    position:absolute;
+    top:-6px; left:22px;
+    width:70px; height:18px;
+    background:rgba(247,198,210,0.7);
+    transform:rotate(-3deg);
+  }
+  .note-sign{
+    color:var(--rose);
+    font-weight:700;
+  }
+
+  /* ---------- SCENE 6: FINAL PHOTO (RESTYLED) ---------- */
+  .final-photo{
+    width:220px; height:220px;
+    border-radius:50%;
+    overflow:hidden;
+    box-shadow: 0 0 0 8px #fff, 0 0 0 12px var(--blush), var(--shadow);
+    margin-top:10px;
+    z-index:2;
+  }
+  .final-photo .photo-slot{
+    width:100%; height:100%;
+    border:none;
+    border-radius:50%;
+  }
+  .final-quote{
+    width:100%; max-width:320px;
+    background:var(--paper);
+    border-radius:16px;
+    padding:20px;
+    text-align:center;
+    font-family:'Patrick Hand',cursive;
+    font-size:16px;
+    color:var(--ink);
+    box-shadow:var(--shadow);
+    z-index:2;
+    margin-top:22px;
+  }
+  .replay-btn{
+    margin-top:20px;
+    background:transparent;
+    border:2px solid var(--rose);
+    color:var(--rose);
+    padding:10px 22px;
+    border-radius:30px;
+    font-family:'Quicksand',sans-serif;
+    font-weight:700;
+    font-size:13px;
+    cursor:pointer;
+    z-index:2;
+  }
+
+  /* confetti hearts */
+  .burst-heart{
+    position:fixed;
+    font-size:18px;
+    pointer-events:none;
+    z-index:80;
+    animation:burst 1.1s ease-out forwards;
+  }
+  @keyframes burst{
+    0%{ transform:translate(0,0) scale(0.6); opacity:1; }
+    100%{ transform:translate(var(--bx), var(--by)) scale(1.1); opacity:0; }
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    .float-heart, .music-btn.playing{ animation:none !important; }
+    .letter, .envelope-flap, .battery-fill, .polaroid{ transition:none !important; }
+  }
+</style>
+</head>
+<body>
+
+<div class="device" id="device">
+
+  <div class="dots" id="dots"></div>
+  <button class="music-btn" id="musicBtn" aria-label="Play music">🎵</button>
+
+  <!-- MUSIC FILE CONFIGURATION -->
+  <audio id="bgm" src="alone2.mp3" loop></audio>
+
+  <!-- ================= SCENE 1 — COVER / ENVELOPE ================= -->
+  <section class="scene" id="scene-cover">
+    <div class="note-tag">For My Cutie :)</div>
+    <div class="envelope-wrap">
+      <div class="letter">
+        <span class="heart-corner">♡</span><span class="heart-corner tr">♡</span>
+        <p>Hey, Babe!<br>I made a little surprise<br>just for you...</p>
+      </div>
+      <div class="envelope-body"></div>
+      <div class="envelope-flap"></div>
+      <div class="seal">♥</div>
+      <div class="bunny">🐰</div>
+    </div>
+    <div class="hint">Tap anywhere to begin
+      <svg width="26" height="18" viewBox="0 0 26 18" fill="none"><path d="M2 2c6 2 8 10 12 12M18 6l-4 8-8-2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </div>
+  </section>
+
+  <!-- ================= SCENE 2 — HAPPY GIRLFRIEND DAY ================= -->
+  <section class="scene" id="scene-hello">
+    <h1 class="title">Happy Girlfriend Day</h1>
+    <div class="heart-balloon">
+      <div class="balloon-string" style="position:absolute; bottom:-58px; left:50%; transform:translateX(-50%);"></div>
+      <div class="shape"></div>
+      <div class="label">Happy<br>Girlfriend<br>Day</div>
+    </div>
+    <div class="ribbon">To the most amazing girl who makes my world so much better :)</div>
+    <img class="balloons" src="photos/balloons.png" alt="" onerror="this.style.display='none'">
+    <div class="hint">Tap to continue
+      <svg width="26" height="18" viewBox="0 0 26 18" fill="none"><path d="M2 2c6 2 8 10 12 12M18 6l-4 8-8-2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </div>
+  </section>
+
+  <!-- ================= SCENE 3 — YOU CHARGE MY HEART ================= -->
+  <section class="scene" id="scene-charge">
+    <div class="eyebrow-tape">You Charge My Heart</div>
+    <div class="battery-card" style="margin-top:26px;">
+      <div class="battery-label" id="chargeLabel">Without you</div>
+      <div>
+        <div class="battery">
+          <div class="battery-fill" id="batteryFill"></div>
+          <div class="battery-face" id="batteryFace">😟</div>
+        </div>
+        <div class="battery-pct" id="batteryPct">0%</div>
+      </div>
+    </div>
+    <button class="charge-btn" id="chargeBtn">Tap to charge ⚡</button>
+
+    <div class="scratch-card">
+      <div class="scratch-under">
+        Reason #1 why I love you goes here...
+      </div>
+      <canvas class="scratch-canvas" data-index="0"></canvas>
+      <div class="prompt">Scratch Me</div>
+    </div>
+    <div class="scratch-card">
+      <div class="scratch-under">
+        Reason #2 why I love you goes here...
+      </div>
+      <canvas class="scratch-canvas" data-index="1"></canvas>
+      <div class="prompt">Scratch Me</div>
+    </div>
+
+    <div class="hint">Tap here to continue
+      <svg width="26" height="18" viewBox="0 0 26 18" fill="none"><path d="M2 2c6 2 8 10 12 12M18 6l-4 8-8-2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </div>
+  </section>
+
+  <!-- ================= SCENE 4 — MEMORY JAR ================= -->
+  <section class="scene" id="scene-jar">
+    <div class="eyebrow-tape">A Jar Full of Us</div>
+
+    <div class="jar" id="jarToggle">
+      <div class="jar-bow">🎀</div>
+      <div class="jar-lid"></div>
+      <div class="jar-body">
+        <span style="font-size:34px;">💌</span>
+      </div>
+    </div>
+    <div class="jar-note" id="jarNote">Tap the jar to open our memories</div>
+
+    <div class="polaroid-stack" id="polaroidStack" style="display:none;">
+      <div class="polaroid" style="transform:rotate(-8deg) translate(-6px,4px); z-index:3;">
+        <div class="photo-slot">
+          <img src="photos/memory1.jpg" alt="" onerror="this.classList.add('missing')">
+          <div class="photo-fallback"><span class="icon">📷</span>Add photo 1</div>
+        </div>
+        <div class="cap">That day at the beach</div>
+      </div>
+      <div class="polaroid" style="transform:rotate(6deg) translate(16px,14px); z-index:2;">
+        <div class="photo-slot">
+          <img src="photos/memory2.jpg" alt="" onerror="this.classList.add('missing')">
+          <div class="photo-fallback"><span class="icon">📷</span>Add photo 2</div>
+        </div>
+        <div class="cap">Our first date</div>
+      </div>
+      <div class="polaroid" style="transform:rotate(-3deg) translate(-14px,26px); z-index:1;">
+        <div class="photo-slot">
+          <img src="photos/memory3.jpg" alt="" onerror="this.classList.add('missing')">
+          <div class="photo-fallback"><span class="icon">📷</span>Add photo 3</div>
+        </div>
+        <div class="cap">My favorite one</div>
+      </div>
+    </div>
+
+    <div class="hint">Tap to continue
+      <svg width="26" height="18" viewBox="0 0 26 18" fill="none"><path d="M2 2c6 2 8 10 12 12M18 6l-4 8-8-2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </div>
+  </section>
+
+  <!-- ================= SCENE 5 — NOTE ================= -->
+  <section class="scene" id="scene-note">
+    <div class="eyebrow-tape">One More Thing</div>
+    <div class="note-paper">
+      Dear you,<br><br>
+      I don't say it enough, but every little thing about you makes my days
+      better — your laugh, the way you get excited over the smallest things,
+      and the way you always know exactly what to say. Thank you for being
+      you, and for putting up with me. Here's to many more Girlfriend Days
+      together.
+      <br><br>
+      Forever yours,<br>
+      <span class="note-sign">Me ♥</span>
+    </div>
+    <div class="hint" style="position:relative; bottom:auto; margin-top:26px;">Tap to continue
+      <svg width="26" height="18" viewBox="0 0 26 18" fill="none"><path d="M2 2c6 2 8 10 12 12M18 6l-4 8-8-2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </div>
+  </section>
+
+  <!-- ================= SCENE 6 — FINAL PHOTO ================= -->
+  <section class="scene" id="scene-final">
+    <div class="eyebrow-tape">Happy Girlfriend Day, Love</div>
+    <div class="final-photo">
+      <div class="photo-slot">
+        <img src="photos/us.jpg" alt="" onerror="this.classList.add('missing')">
+        <div class="photo-fallback"><span class="icon">📷</span>Add your favorite photo of us</div>
+      </div>
+    </div>
+    <div class="final-quote">"Out of every love story in the world, I'm so glad mine is with you."</div>
+    <button class="replay-btn" id="replayBtn">Watch Again ↻</button>
+  </section>
+
+</div>
+
+<script>
+(function(){
+  const scenes = Array.from(document.querySelectorAll('.scene'));
+  const device = document.getElementById('device');
+  const dotsWrap = document.getElementById('dots');
+
+  /* ---------- progress dots ---------- */
+  scenes.forEach((s, i) => {
+    const b = document.createElement('button');
+    b.setAttribute('aria-label', 'Go to section ' + (i + 1));
+    b.addEventListener('click', () => s.scrollIntoView({ behavior: 'smooth' }));
+    dotsWrap.appendChild(b);
+  });
+  const dotBtns = Array.from(dotsWrap.children);
+
+  const sceneObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const idx = scenes.indexOf(entry.target);
+        dotBtns.forEach(d => d.classList.remove('active'));
+        if (dotBtns[idx]) dotBtns[idx].classList.add('active');
+      }
+    });
+  }, { root: device, threshold: 0.55 });
+  scenes.forEach(s => sceneObserver.observe(s));
+
+  /* ---------- ambient floating hearts ---------- */
+  const heartChars = ['♡', '♥'];
+  function spawnHeart(scene){
+    const h = document.createElement('span');
+    h.className = 'float-heart';
+    h.textContent = heartChars[Math.floor(Math.random() * heartChars.length)];
+    h.style.left = (Math.random() * 90 + 5) + '%';
+    h.style.setProperty('--drift', (Math.random() * 60 - 30) + 'px');
+    h.style.animationDuration = (6 + Math.random() * 5) + 's';
+    h.style.fontSize = (12 + Math.random() * 10) + 'px';
+    scene.appendChild(h);
+    setTimeout(() => h.remove(), 12000);
+  }
+  scenes.forEach(scene => {
+    setInterval(() => spawnHeart(scene), 2600 + Math.random() * 1400);
+  });
+
+  /* ---------- confetti burst ---------- */
+  function burst(x, y, count){
+    count = count || 14;
+    for(let i = 0; i < count; i++){
+      const h = document.createElement('span');
+      h.className = 'burst-heart';
+      h.textContent = Math.random() > 0.5 ? '♥' : '♡';
+      h.style.left = x + 'px';
+      h.style.top = y + 'px';
+      const angle = Math.random() * Math.PI * 2;
+      const dist = 60 + Math.random() * 90;
+      h.style.setProperty('--bx', Math.cos(angle) * dist + 'px');
+      h.style.setProperty('--by', Math.sin(angle) * dist + 'px');
+      h.style.color = Math.random() > 0.5 ? '#dd5372' : '#f0899e';
+      document.body.appendChild(h);
+      setTimeout(() => h.remove(), 1200);
+    }
+  }
+
+  /* ---------- scene 1: envelope ---------- */
+  const cover = document.getElementById('scene-cover');
+  cover.addEventListener('click', function(){
+    if (!cover.classList.contains('opened')){
+      cover.classList.add('opened');
+      const r = cover.getBoundingClientRect();
+      burst(r.left + r.width / 2, r.top + r.height / 2, 18);
+      setTimeout(() => {
+        document.getElementById('scene-hello').scrollIntoView({ behavior: 'smooth' });
+      }, 900);
+    }
+  });
+
+  /* ---------- scene 2: tap to continue ---------- */
+  document.getElementById('scene-hello').addEventListener('click', function(){
+    document.getElementById('scene-charge').scrollIntoView({ behavior: 'smooth' });
+  });
+
+  /* ---------- scene 3: battery charge ---------- */
+  const chargeBtn = document.getElementById('chargeBtn');
+  const fill = document.getElementById('batteryFill');
+  const face = document.getElementById('batteryFace');
+  const pct = document.getElementById('batteryPct');
+  const chargeLabel = document.getElementById('chargeLabel');
+
+  chargeBtn.addEventListener('click', function(e){
+    e.stopPropagation();
+    if (chargeBtn.disabled) return;
+    chargeBtn.disabled = true;
+    chargeBtn.textContent = 'Charging...';
+    chargeLabel.textContent = 'With you';
+
+    let current = 0;
+    const step = () => {
+      current += 4;
+      if (current >= 100) current = 100;
+      fill.style.width = current + '%';
+      pct.textContent = current + '%';
+      if (current < 40) face.textContent = '😐';
+      else if (current < 80) face.textContent = '🙂';
+      else face.textContent = '🥰';
+
+      if (current < 100){
+        setTimeout(step, 60);
+      } else {
+        chargeBtn.textContent = 'Fully charged ♥';
+        const r = chargeBtn.getBoundingClientRect();
+        burst(r.left + r.width / 2, r.top, 20);
+      }
+    };
+    step();
+  });
+
+  /* ---------- scratch cards ---------- */
+  document.querySelectorAll('.scratch-card').forEach(card => {
+    const canvas = card.querySelector('canvas');
+    const ctx = canvas.getContext('2d');
+
+    function paintCanvas(){
+      const rect = card.getBoundingClientRect();
+      canvas.width = rect.width;
+      canvas.height = rect.height;
+      ctx.globalCompositeOperation = 'source-over';
+      ctx.fillStyle = '#dd5372';
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+      ctx.globalCompositeOperation = 'destination-out';
+    }
+    paintCanvas();
+    window.addEventListener('resize', paintCanvas);
+
+    let scratching = false;
+    let cleared = false;
+
+    function scratchAt(x, y){
+      ctx.beginPath();
+      ctx.arc(x, y, 18, 0, Math.PI * 2);
+      ctx.fill();
+      checkCleared();
+    }
+    function checkCleared(){
+      if (cleared) return;
+      const data = ctx.getImageData(0, 0, canvas.width, canvas.height).data;
+      let transparent = 0;
+      let samples = 0;
+      for (let i = 3; i < data.length; i += 4 * 20){
+        samples++;
+        if (data[i] === 0) transparent++;
+      }
+      if (samples > 0 && transparent / samples > 0.55){
+        cleared = true;
+        canvas.style.transition = 'opacity .4s';
+        canvas.style.opacity = '0';
+        const r = canvas.getBoundingClientRect();
+        burst(r.left + r.width / 2, r.top + r.height / 2, 12);
+      }
+    }
+    function posFromEvent(e){
+      const rect = canvas.getBoundingClientRect();
+      const t = e.touches ? e.touches[0] : e;
+      return { x: t.clientX - rect.left, y: t.clientY - rect.top };
+    }
+
+    canvas.addEventListener('pointerdown', e => {
+      scratching = true;
+      const p = posFromEvent(e);
+      scratchAt(p.x, p.y);
+    });
+    canvas.addEventListener('pointermove', e => {
+      if (scratching){
+        const p = posFromEvent(e);
+        scratchAt(p.x, p.y);
+      }
+    });
+    window.addEventListener('pointerup', () => scratching = false);
+    canvas.addEventListener('touchmove', e => e.preventDefault(), { passive: false });
+  });
+
+  /* ---------- scene 3 -> continue (tap anywhere except controls) ---------- */
+  document.getElementById('scene-charge').addEventListener('click', function(e){
+    if (e.target.closest('.charge-btn') || e.target.closest('.scratch-card')) return;
+    document.getElementById('scene-jar').scrollIntoView({ behavior: 'smooth' });
+  });
+
+  /* ---------- scene 4: memory jar ---------- */
+  const jarToggle = document.getElementById('jarToggle');
+  const jarNote = document.getElementById('jarNote');
+  const polaroidStack = document.getElementById('polaroidStack');
+
+  jarToggle.addEventListener('click', function(e){
+    e.stopPropagation();
+    if (polaroidStack.style.display !== 'none') return;
+    jarToggle.style.opacity = '0';
+    jarToggle.style.transform = 'scale(0.8)';
+    jarNote.style.display = 'none';
+    polaroidStack.style.display = 'block';
+    requestAnimationFrame(() => {
+      polaroidStack.querySelectorAll('.polaroid').forEach((p, i) => {
+        setTimeout(() => p.classList.add('show'), i * 150);
+      });
+    });
+    const r = jarToggle.getBoundingClientRect();
+    burst(r.left + r.width / 2, r.top, 20);
+    setTimeout(() => { jarToggle.style.display = 'none'; }, 300);
+  });
+
+  document.getElementById('scene-jar').addEventListener('click', function(e){
+    if (e.target.closest('.jar')) return;
+    document.getElementById('scene-note').scrollIntoView({ behavior: 'smooth' });
+  });
+
+  /* ---------- scene 5 -> continue ---------- */
+  document.getElementById('scene-note').addEventListener('click', function(){
+    document.getElementById('scene-final').scrollIntoView({ behavior: 'smooth' });
+  });
+
+  /* ---------- scene 6: replay ---------- */
+  document.getElementById('replayBtn').addEventListener('click', function(e){
+    e.stopPropagation();
+    cover.classList.remove('opened');
+    chargeBtn.disabled = false;
+    chargeBtn.textContent = 'Tap to charge ⚡';
+    chargeLabel.textContent = 'Without you';
+    fill.style.width = '0%';
+    pct.textContent = '0%';
+    face.textContent = '😟';
+    jarToggle.style.display = '';
+    jarToggle.style.opacity = '1';
+    jarToggle.style.transform = 'scale(1)';
+    jarNote.style.display = '';
+    polaroidStack.style.display = 'none';
+    polaroidStack.querySelectorAll('.polaroid').forEach(p => p.classList.remove('show'));
+    document.getElementById('scene-cover').scrollIntoView({ behavior: 'smooth' });
+  });
+
+  /* ---------- music toggle ---------- */
+  const musicBtn = document.getElementById('musicBtn');
+  const bgm = document.getElementById('bgm');
+  musicBtn.addEventListener('click', function(){
+    if (bgm.paused){
+      bgm.play().then(() => {
+        musicBtn.classList.add('playing');
+        musicBtn.textContent = '♫';
+      }).catch(() => {
+        musicBtn.textContent = '🔇';
+      });
+    } else {
+      bgm.pause();
+      musicBtn.classList.remove('playing');
+      musicBtn.textContent = '🎵';
+    }
+  });
+})();
+</script>
+
+</body>
+</html>
