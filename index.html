@@ -1045,6 +1045,13 @@
         setTimeout(() => p.classList.add('show'), i * 150);
       });
     });
+    polaroidStack.querySelectorAll('.polaroid').forEach(p => {
+      p.style.cursor = 'pointer';
+      p.addEventListener('click', function(e){
+        e.stopPropagation();
+        polaroidStack.appendChild(p);
+      });
+    });
     const r = jarToggle.getBoundingClientRect();
     burst(r.left + r.width / 2, r.top, 20);
     setTimeout(() => { jarToggle.style.display = 'none'; }, 300);
